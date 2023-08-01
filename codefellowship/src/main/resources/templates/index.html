@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CodeFellowship</title>
+</head>
+<body>
+<h1>Welcome to CodeFellowship</h1>
+<p>Welcome, <span th:text="${#authentication.principal.username}"></span>!</p>
+<div th:if="${#authentication.isAuthenticated()}">
+  <a href="/logout">Logout</a>
+</div>
+<div th:unless="${#authentication.isAuthenticated()}">
+  <a href="/login">Login</a> | <a href="/signup">Signup</a>
+</div>
+</body>
+</html>
