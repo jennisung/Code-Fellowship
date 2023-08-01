@@ -5,6 +5,7 @@ import com.jencf.codefellowship.models.ApplicationUser;
 import com.jencf.codefellowship.repositories.ApplicationUserRepo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 //import org.springframework.security.core.Authentication;
@@ -41,6 +42,13 @@ public class ApplicationUserController {
     public String getSignupPage() {
         return "signup";
     }
+
+//    @GetMapping("/logout")
+//    public RedirectView logout(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+//        request.logout();
+//        return new RedirectView("/");
+//    }
+
 
     @PostMapping("/signup")
     public RedirectView postSignup(String username, String password, String firstName, String lastName,

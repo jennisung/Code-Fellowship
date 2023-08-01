@@ -19,3 +19,4 @@ Build an app that allows users to log into CodeFellowship.
 * The site should be well-styled and attractive.
 * The site should use templates to display its information.
 * Ensure that user registration also logs users into your app automatically.
+
