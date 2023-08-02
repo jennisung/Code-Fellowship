@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,9 +7,17 @@
 </head>
 <body>
 <h1>Welcome to CodeFellowship</h1>
+
+
+
+<!--STATIC IMAGE PLACEHOLDer-->
+<img src="https://placehold.co/300x300" alt="Placeholder Profile Image">
+
+
+
 <p>Welcome, <span th:text="${#authentication.principal.username}"></span>!</p>
 <div th:if="${#authentication.isAuthenticated()}">
-  <a href="/logout">Logout</a>
+  <a th:href="@{/myprofile}">My Profile</a> | <a href="/logout">Logout</a>
 </div>
 <div th:unless="${#authentication.isAuthenticated()}">
   <a href="/login">Login</a> | <a href="/signup">Signup</a>
