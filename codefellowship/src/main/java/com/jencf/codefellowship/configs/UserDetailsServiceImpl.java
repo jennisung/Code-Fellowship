@@ -1,5 +1,6 @@
 package com.jencf.codefellowship.configs;
 
+
 import com.jencf.codefellowship.models.ApplicationUser;
 import com.jencf.codefellowship.repositories.ApplicationUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,4 +24,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return user;
     }
 }
+
+
 
