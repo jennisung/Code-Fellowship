@@ -6,9 +6,15 @@
 </head>
 <body>
 
-<!--STATIC IMAGE PLACEHOLDer-->
+<!-- STATIC IMAGE PLACEHOLDER -->
 <img src="https://placehold.co/300x300" alt="Placeholder Profile Image">
 
+<h1>User: <span th:text="${user.username}"></span></h1>
+<p>First Name: <span th:text="${user.firstName}"></span></p>
+<p>Last Name: <span th:text="${user.lastName}"></span></p>
+<p>Bio: <span th:text="${user.bio}"></span></p>
+
+<a th:href="@{/users/{id}(id=${user.id})}">View Profile</a>
 
 </body>
 </html>
