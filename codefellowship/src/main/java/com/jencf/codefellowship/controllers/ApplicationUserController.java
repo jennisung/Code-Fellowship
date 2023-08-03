@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
@@ -129,6 +130,30 @@ public class ApplicationUserController {
 
         return "users";
     }
+
+
+
+
+    //lab 18
+    @PutMapping("/follow-user/{id}")
+    public RedirectView followUser(Principal principal, @PathVariable Long id) {
+        ApplicationUser userToFollow = applicationUserRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Error reading user from the database with ID of: " + id));
+
+        ApplicationUser browsingUser = applicationUserRepo.findByUsername(principal.getName());
+
+        if (browsingUser.getId().equals(userToFollow.getId())) {
+            throw new IllegalArgumentException("Following yourself is not allowed!");
+        }
+
+        browsingUser.getUsersIFollow().add(userToFollow);
+
+        applicationUserRepo.save(browsingUser);
+
+        return new RedirectView("/users/" + id);
+    }
+
+
 
 
 }

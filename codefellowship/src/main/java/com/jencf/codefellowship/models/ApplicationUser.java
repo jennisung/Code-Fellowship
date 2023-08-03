@@ -5,7 +5,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -38,6 +40,21 @@ public class ApplicationUser implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<PostUser> posts;
+
+
+    //lab 18
+    @ManyToMany
+    @JoinTable(
+            name = "followers_to_followees",
+            joinColumns = {@JoinColumn(name = "userWhoIsFollowing")},
+            inverseJoinColumns = {@JoinColumn(name = "FollowedUser")}
+    )
+    private Set<ApplicationUser> usersIFollow = new HashSet<>();
+
+    @ManyToMany(mappedBy = "usersIFollow")
+    private Set<ApplicationUser> usersWhoFollowMe = new HashSet<>();
+
+    //end of lab 18
 
     public Long getId() {
         return id;
@@ -94,6 +111,34 @@ public class ApplicationUser implements UserDetails {
     public void setBio(String bio) {
         this.bio = bio;
     }
+
+
+    //lab18 additions
+    public List<PostUser> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<PostUser> posts) {
+        this.posts = posts;
+    }
+
+    public Set<ApplicationUser> getUsersIFollow() {
+        return usersIFollow;
+    }
+
+    public void setUsersIFollow(Set<ApplicationUser> usersIFollow) {
+        this.usersIFollow = usersIFollow;
+    }
+
+    public Set<ApplicationUser> getUsersWhoFollowMe() {
+        return usersWhoFollowMe;
+    }
+
+    public void setUsersWhoFollowMe(Set<ApplicationUser> usersWhoFollowMe) {
+        this.usersWhoFollowMe = usersWhoFollowMe;
+    }
+
+    //end of lab 18 in model
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
