@@ -21,6 +21,11 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -125,7 +130,7 @@ public class ApplicationUserController {
         }
 
         ApplicationUser foundUser = applicationUserRepo.findById(id)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with ID: " + id));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + id));
         model.addAttribute("user", foundUser);
 
         return "users";
@@ -133,8 +138,7 @@ public class ApplicationUserController {
 
 
 
-
-    //lab 18
+    //lab 18 from lecture example
     @PutMapping("/follow-user/{id}")
     public RedirectView followUser(Principal principal, @PathVariable Long id) {
         ApplicationUser userToFollow = applicationUserRepo.findById(id)
@@ -154,6 +158,22 @@ public class ApplicationUserController {
     }
 
 
+    @GetMapping("/feed")
+    public String viewFeed(Model model, Principal principal) {
+        ApplicationUser loggedInUser = applicationUserRepo.findByUsername(principal.getName());
+
+        List<PostUser> feedPosts = new ArrayList<>();
+        for (ApplicationUser user : loggedInUser.getUsersIFollow()) {
+            feedPosts.addAll(user.getPosts());
+        }
+
+        feedPosts.sort(Comparator.comparing(PostUser::getCreatedAt).reversed());
+
+        model.addAttribute("feedPosts", feedPosts);
+        model.addAttribute("loggedInUser", loggedInUser);
+
+        return "feed";
+    }
 
 
 }
