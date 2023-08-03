@@ -9,10 +9,21 @@
 <!-- STATIC IMAGE PLACEHOLDER -->
 <img src="https://placehold.co/300x300" alt="Placeholder Profile Image">
 
+<h1>My Info</h1>
+
 <h1>User: <span th:text="${user.username}"></span></h1>
 <p>First Name: <span th:text="${user.firstName}"></span></p>
 <p>Last Name: <span th:text="${user.lastName}"></span></p>
 <p>Bio: <span th:text="${user.bio}"></span></p>
+
+<h1>All Users</h1>
+<ul>
+  <li th:each="user : ${users}">
+    <a th:href="@{/users/{id}(id=${user.id})}" th:text="${user.username}"></a>
+    <button th:if="${user.username != principal?.getName()}"
+            th:href="@{/follow-user/{id}(id=${user.id})}">Follow</button>
+  </li>
+</ul>
 
 <a th:href="@{/users/{id}(id=${user.id})}">View Profile</a>
 
