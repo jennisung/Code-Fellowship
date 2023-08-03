@@ -8,10 +8,7 @@ import com.jencf.codefellowship.repositories.PostUserRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +19,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.Optional;
+import java.time.LocalDateTime;
+
 
 @Controller
 public class ApplicationUserController {
@@ -64,6 +62,9 @@ public class ApplicationUserController {
         return new RedirectView("/");
     }
 
+
+
+
     public void authWithHttpServletRequest(String username, String password) {
         try {
             request.login(username, password);
@@ -73,19 +74,7 @@ public class ApplicationUserController {
         }
     }
 
-//    @GetMapping("/")
-//    public String getIndexPage(Model model, Principal principal) {
-//        if (principal != null) {
-//            String username = principal.getName();
-//            ApplicationUser user = applicationUserRepo.findByUsername(username);
-//            model.addAttribute("username", username);
-//            model.addAttribute("firstName", user.getFirstName());
-//            model.addAttribute("lastName", user.getLastName());
-//            model.addAttribute("dateOfBirth", user.getDateOfBirth());
-//            model.addAttribute("bio", user.getBio());
-//        }
-//        return "index";
-//    }
+
     @GetMapping("/")
     public String getIndexPage(Principal principal) {
     if (principal != null) {
@@ -98,12 +87,6 @@ public class ApplicationUserController {
 
     //    lab 17
 
-//    @GetMapping("/myprofile")
-//    public String getUserProfile() {
-//        return "myprofile";
-//    }
-
-
     @GetMapping("/myprofile")
     public String getUserProfile(Model model, Principal principal) {
         if (principal != null) {
@@ -113,11 +96,10 @@ public class ApplicationUserController {
             System.out.println("getUserProfile");
             return "myprofile";
         }
-        return "redirect:/login";
+//        return "redirect:/login";
+        return "myprofile";
+
     }
-
-
-
 
     @PostMapping("/myprofile")
     public RedirectView createPost(String body, Principal principal) {
@@ -126,32 +108,27 @@ public class ApplicationUserController {
             ApplicationUser user = applicationUserRepo.findByUsername(username);
             PostUser post = new PostUser();
             post.setBody(body);
+            post.setCreatedAt(LocalDateTime.now());
             post.setUser(user);
             postUserRepository.save(post);
         }
         return new RedirectView("/myprofile");
     }
 
-//    @GetMapping("/users/{id}")
-//    public String getUserInfo(Model model, Principal principal, @PathVariable Long id) {
-//        if (principal != null) {
-//            String username = principal.getName();
-//            model.addAttribute("username", username);
-//        }
-//
-//        Optional<ApplicationUser> foundUserOptional = applicationUserRepo.findById(id);
-//        if (foundUserOptional.isPresent()) {
-//            ApplicationUser foundUser = foundUserOptional.get();
-//            model.addAttribute("foundUser", foundUser);
-//            return "users";
-//
-//        } else {
-//            return "error";
-//        }
-//    }
 
+    @GetMapping("/users/{id}")
+    public String getUserInfo(Model model, Principal principal, @PathVariable Long id) {
+        if (principal != null) {
+            String username = principal.getName();
+            model.addAttribute("username", username);
+        }
 
+        ApplicationUser foundUser = applicationUserRepo.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with ID: " + id));
+        model.addAttribute("user", foundUser);
 
+        return "users";
+    }
 
 
 }

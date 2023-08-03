@@ -1,26 +1,54 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>CodeFellowship</title>
-</head>
-<body>
-<h1>Welcome to CodeFellowship</h1>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>CodeFellowship</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  </head>
+  <body>
+  <main class="container">
+
+    <h1 class="text-center">Welcome to CodeFellowship</h1>
+
+    <!--STATIC IMAGE PLACEHOLDER-->
+    <img src="https://placehold.co/300x300" alt="Placeholder Profile Image">
+
+    <p class="text-center">Welcome, <span th:text="${#authentication.principal.username}"></span>!</p>
+    <div th:if="${#authentication.isAuthenticated()}" class="text-center">
+      <a th:href="@{/myprofile}" class="btn btn-primary">My Profile</a> | <a href="/logout" class="btn btn-primary">Logout</a>
+    </div>
+    <div th:unless="${#authentication.isAuthenticated()}" class="text-center">
+      <a href="/login" class="btn btn-primary">Login</a> | <a href="/signup" class="btn btn-primary">Signup</a>
+    </div>
+  </main>
+  </body>
+  </html>
 
 
 
-<!--STATIC IMAGE PLACEHOLDer-->
-<img src="https://placehold.co/300x300" alt="Placeholder Profile Image">
+<!--  <!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>CodeFellowship</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Welcome to CodeFellowship</h1>-->
 
 
 
-<p>Welcome, <span th:text="${#authentication.principal.username}"></span>!</p>
-<div th:if="${#authentication.isAuthenticated()}">
-  <a th:href="@{/myprofile}">My Profile</a> | <a href="/logout">Logout</a>
-</div>
-<div th:unless="${#authentication.isAuthenticated()}">
-  <a href="/login">Login</a> | <a href="/signup">Signup</a>
-</div>
-</body>
-</html>
+<!--&lt;!&ndash;STATIC IMAGE PLACEHOLDer&ndash;&gt;-->
+<!--<img src="https://placehold.co/300x300" alt="Placeholder Profile Image">-->
+
+
+
+<!--<p>Welcome, <span th:text="${#authentication.principal.username}"></span>!</p>-->
+<!--<div th:if="${#authentication.isAuthenticated()}">-->
+<!--  <a th:href="@{/myprofile}">My Profile</a> | <a href="/logout">Logout</a>-->
+<!--</div>-->
+<!--<div th:unless="${#authentication.isAuthenticated()}">-->
+<!--  <a href="/login">Login</a> | <a href="/signup">Signup</a>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

@@ -1,23 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-<!--    <a th:href="@{/myprofile}">My Profile</a>-->
-    <meta charset="UTF-8">
 
-    <title>Your Profile Information</title>
+<head>
+    <meta charset="UTF-8">
+    <title>myprofile.html</title>
 </head>
 <body>
 <h1>User: <span th:text="${user.username}"></span></h1>
 
-<!--STATIC IMAGE PLACEHOLDer-->
+<!--STATIC IMAGE PLACEHOLDER-->
 <img src="https://placehold.co/300x300" alt="Placeholder Profile Image">
-
 
 <p>First Name: <span th:text="${user.firstName}"></span></p>
 <p>Last Name: <span th:text="${user.lastName}"></span></p>
 <p>Bio: <span th:text="${user.bio}"></span></p>
-
-
 
 <h2>Saved Posts:</h2>
 <ul>
@@ -27,14 +23,15 @@
     </li>
 </ul>
 
-
 <h2>Create a New Post:</h2>
-<form action="/posts" method="post">
+<form action="/myprofile" method="post">
     <textarea name="body" rows="4" cols="50" placeholder="Start writing..."></textarea>
     <button type="submit">Submit</button>
 </form>
 
+<a th:href="@{/users}">View All Users</a>
 
 <a href="/logout">Logout</a>
 </body>
 </html>
+
