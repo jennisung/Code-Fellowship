@@ -1,47 +1,47 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Error!</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>I AM ERROR</h1>-->
-<!--<span th:text="${message}"></span>-->
-<!--</body>-->
-<!--</html>-->
-
-<!--this said error but it is really myprofile.html, for some reason, myprofile contorller redirects here-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>error.html</title>
+    <title>Error!</title>
 </head>
 <body>
-<h1>User: <span th:text="${user.username}"></span></h1>
-
-<!--STATIC IMAGE PLACEHOLDER-->
-<img src="https://placehold.co/300x300" alt="Placeholder Profile Image">
-
-<p>First Name: <span th:text="${user.firstName}"></span></p>
-<p>Last Name: <span th:text="${user.lastName}"></span></p>
-<p>Bio: <span th:text="${user.bio}"></span></p>
-<a th:href="@{/users}">View All Users</a>
-
-<h2>Saved Posts:</h2>
-<ul>
-    <li th:each="post : ${user.posts}">
-        <span th:text="${post.body}"></span>
-        <span>Posted on: <span th:text="${post.createdAt}"></span></span>
-    </li>
-</ul>
-
-<h2>Create a New Post:</h2>
-<form action="/newpost" method="post">
-    <textarea name="body" rows="4" cols="50" placeholder="Start writing..."></textarea>
-    <button type="submit">Submit</button>
-</form>
-
-
+<h1>I AM ERROR</h1>
+<span th:text="${message}"></span>
 </body>
 </html>
+
+<!--this said error but it is really myprofile.html, for some reason, myprofile contorller redirects here-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>error.html</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>User: <span th:text="${user.username}"></span></h1>-->
+
+<!--&lt;!&ndash;STATIC IMAGE PLACEHOLDER&ndash;&gt;-->
+<!--<img src="https://placehold.co/300x300" alt="Placeholder Profile Image">-->
+
+<!--<p>First Name: <span th:text="${user.firstName}"></span></p>-->
+<!--<p>Last Name: <span th:text="${user.lastName}"></span></p>-->
+<!--<p>Bio: <span th:text="${user.bio}"></span></p>-->
+<!--<a th:href="@{/users}">View All Users</a>-->
+
+<!--<h2>Saved Posts:</h2>-->
+<!--<ul>-->
+<!--    <li th:each="post : ${user.posts}">-->
+<!--        <span th:text="${post.body}"></span>-->
+<!--        <span>Posted on: <span th:text="${post.createdAt}"></span></span>-->
+<!--    </li>-->
+<!--</ul>-->
+
+<!--<h2>Create a New Post:</h2>-->
+<!--<form action="/newpost" method="post">-->
+<!--    <textarea name="body" rows="4" cols="50" placeholder="Start writing..."></textarea>-->
+<!--    <button type="submit">Submit</button>-->
+<!--</form>-->
+
+
+<!--</body>-->
+<!--</html>-->
